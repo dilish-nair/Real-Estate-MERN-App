@@ -1,7 +1,11 @@
-import express from 'express';
+import express, { Router } from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import userRouter from './Routes/user.route.js';
+import router from './Routes/user.route.js';
+import authRouter from './Routes/auth.route.js';
+
+
+
 
 
 dotenv.config();
@@ -21,9 +25,14 @@ mongoose.connect(process.env.MONGO)
     });
 
 // Middleware
+app.use(express.json());
 
 // Routes
-app.use('/api/user', userRouter);
+app.use('/api/user', router);
+app.use('/api/auth', authRouter);
+
+
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
