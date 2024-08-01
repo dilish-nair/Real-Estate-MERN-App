@@ -1,6 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import userRouter from './Routes/user.route.js';
+
 
 dotenv.config();
 
@@ -21,6 +23,7 @@ mongoose.connect(process.env.MONGO)
 // Middleware
 
 // Routes
+app.use('/api/user', userRouter);
 
 // Start the server
 const PORT = process.env.PORT || 3000;
