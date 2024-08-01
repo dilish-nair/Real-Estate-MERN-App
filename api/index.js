@@ -8,6 +8,7 @@ import authRouter from './Routes/auth.route.js';
 
 
 
+
 dotenv.config();
 
 console.log('Starting server...');
@@ -30,6 +31,11 @@ app.use(express.json());
 // Routes
 app.use('/api/user', router);
 app.use('/api/auth', authRouter);
+
+// Global error handler
+app.use((err, req, res, next) => {
+    res.status(500).json({ message: 'Internal Server Error', error: err.message });
+});
 
 
 
