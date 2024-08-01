@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
+        minlength: 8, // Minimum length of 8 characters for password
     },
     firstName: {
         type: String,
@@ -52,6 +53,7 @@ const userSchema = new mongoose.Schema({
     roles: {
         type: [String],
         default: ['user'],
+        enum: ['user', 'owner', 'agent', 'affiliate'],
     },
     resetPasswordToken: {
         type: String,
@@ -83,3 +85,5 @@ userSchema.pre('save', function(next) {
 });
 
 const User = mongoose.model('User', userSchema);
+
+export default User;
