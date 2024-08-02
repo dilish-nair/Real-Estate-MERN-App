@@ -47,11 +47,15 @@ export const signin = async (req, res, next) => {
         }
 
         const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(200).json({ success: true, message: 'Logged in successfully', token });
+
+        res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'Strict' });
+        res.status(200).json({ success: true, message: 'Logged in successfully' });
     } catch (error) {
         next(error);
     }
 };
+
+
 
 export const signout = (req, res) => {
     res.status(200).json({ success: true, message: 'User signed out successfully' });
