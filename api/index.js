@@ -12,7 +12,7 @@ import authRouter from './Routes/auth.route.js';
 dotenv.config();
 
 console.log('Starting server...');
-console.log('MONGO URI:', process.env.MONGO);
+// console.log('MONGO URI:', process.env.MONGO);
 
 const app = express();
 
