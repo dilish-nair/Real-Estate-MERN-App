@@ -7,10 +7,10 @@ function Header() {
     <header className='bg-black shadow-lg'> 
         <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
       <Link to='/'>
-        <h1 className='font-bold text-sm sm:text-xl flex flex-wrap gap-2'>
-            <span className='text-white'>Desi</span>
-            <span className='text-green-500'>Real Estate</span>
-        </h1>
+      <h1 className='font-bold text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl flex flex-wrap gap-1'>
+          <span className='text-white'>Desi</span>
+         <span className='text-blue-400' >Real Estate</span>
+      </h1>
       </Link>
         <form className='bg-slate-200 p-3 rounded-lg flex items-center'>
             <input type="text" placeholder='Search...' className='bg-transparent focus: outline-none w-24 sm:w-64'/>

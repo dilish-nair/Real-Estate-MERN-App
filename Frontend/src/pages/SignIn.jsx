@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from '../Redux/user/userSlice';
 
 function SignIn() {
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({
@@ -16,10 +22,9 @@ function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null); // Reset error state on form submit
 
     try {
+      dispatch(signInStart());
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: {
@@ -33,17 +38,15 @@ function SignIn() {
 
       if (res.ok && data.success) {
         // Optionally, store the token in local storage
-        // localStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.token);
 
-        setLoading(false);
+        dispatch(signInSuccess(data));
         navigate('/'); // Navigate to home page on successful login
       } else {
-        setLoading(false);
-        setError(data.message || 'Sign-in failed');
+        dispatch(signInFailure(data.message));
       }
     } catch (error) {
-      setLoading(false);
-      setError(error.message);
+      dispatch(signInFailure(error.message));
     }
   };
 
